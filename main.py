@@ -104,6 +104,7 @@ def button_pressed_action():
         infoLabel.setText("")
     except Exception:
         infoLabel.setText("Error during parsing/downloading. Check if correct file is selected")
+    downloadButton.setText("Download clip")
     downloadButton.setEnabled(True)
     downloadInProgress = False
 
