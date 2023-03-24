@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import *
 
 # ------------------------------------  GUI ------------------------------------------------------
 
-version = "1.1"
+version = "1.1.1"
 
 app = QApplication([])
 window = QWidget()
