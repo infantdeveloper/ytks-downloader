@@ -192,8 +192,10 @@ def process(url, duration, folder_name=""):
                 url_aud = x["requested_formats"][1]["url"]
                 title = x["title"]
                 done = True
-        except Exception:
-            pass
+        except Exception as e:
+            if e.args[0] == 'ERROR: Private video\nSign in if you\'ve been granted access to this video':
+                print("WARNING: Skipping video with id " + str(id) + " because it is private and can't be accessed")
+                return
     if not os.path.isfile("./ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe"):
         print("Downloading FFMPEG")
         downloadButton.setText("Downloading FFMPEG...")
