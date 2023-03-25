@@ -15,7 +15,7 @@ from PyQt6.QtWidgets import *
 
 # ------------------------------------  GUI ------------------------------------------------------
 
-version = "1.1.1"
+version = "1.1.2"
 
 app = QApplication([])
 window = QWidget()
@@ -214,7 +214,7 @@ def process(url, duration, folder_name=""):
     start_time_in_s = max(start_time_in_s, 0)
     command = "ffmpeg.exe -ss " + time_in_s_to_time_string(start_time_in_s) + " -i \"" + url_vid + \
               "\" -ss " + time_in_s_to_time_string(start_time_in_s) + " -i \"" + url_aud + \
-              "\" -map 0:v -map 1:a -c:v libx264 -c:a aac -t " + time_in_s_to_time_string(duration) + \
+              "\" -map 0:v -map 1:a -c:v libx264 -c:a aac -b:a 320k -t " + time_in_s_to_time_string(duration) + \
               " -y \"" + "../../" + (folder_name + "/" if folder_name != "" else "") + replace_non_alpha_num(title.strip()) + "-" + id + "-" + str(round(timestamp / 1000)) + ".mp4\""
     print(command)
     os.system(command)
