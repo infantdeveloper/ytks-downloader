@@ -9,19 +9,30 @@ from threading import Thread
 import youtube_dl
 import urllib.request
 import zipfile
+import webbrowser
 
 from PyQt6 import QtGui
 from PyQt6.QtWidgets import *
 
 # ------------------------------------  GUI ------------------------------------------------------
 
-version = "1.1.2"
+version = "1.1.3"
 
 app = QApplication([])
 window = QWidget()
 window.setWindowTitle("YTKS Downloader - " + version)
-window.setFixedSize(400, 230)
+window.setFixedSize(400, 300)
 layout = QVBoxLayout()
+
+group1 = QWidget()
+hbox1 = QHBoxLayout()
+repoButton = QPushButton("Downloader Repo")
+ytksButton = QPushButton("YTKS.app")
+hbox1.addWidget(ytksButton)
+hbox1.addWidget(repoButton)
+group1.setLayout(hbox1)
+layout.addWidget(group1)
+
 layout.addWidget(QLabel("Enter YTKS match URL: "))
 lineEdit = QLineEdit()
 layout.addWidget(lineEdit)
@@ -135,10 +146,20 @@ def reset_chosen_file_button_pressed():
     downloadButton.setEnabled(False)
 
 
+def open_repo():
+    webbrowser.open("https://github.com/infantdeveloper/ytks-downloader", new=0, autoraise=True)
+
+
+def open_ytks():
+    webbrowser.open("https://ytks.app", new=0, autoraise=True)
+
+
 lineEdit.textChanged.connect(text_changed)
 fileChooserButton.clicked.connect(file_chooser_button_pressed)
 resetChosenFileButton.clicked.connect(reset_chosen_file_button_pressed)
 downloadButton.clicked.connect(button_pressed)
+repoButton.clicked.connect(open_repo)
+ytksButton.clicked.connect(open_ytks)
 
 # ------------------------------------  Helper funcs  ------------------------------------------------------
 
