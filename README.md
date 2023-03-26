@@ -9,7 +9,7 @@ It uses [FFMPEG](https://ffmpeg.org/) to actually download the clips.
 
 To download one clip from YTKS click the "Copy link to match" button of a match and paste it into "YTKS Match Url" Field
 
-To donwload all clips of a search download the match list on the website via the "Download match list" button (requires plus/pro) and select then select it via the "select match list" button in the downloader  
+To donwload all clips of a search download the match list on the website via the "Download match list" button (requires plus/pro) and then select it via the "select match list" button in the downloader  
 
 ## Build from source
 
