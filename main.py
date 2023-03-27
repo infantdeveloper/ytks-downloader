@@ -16,7 +16,7 @@ from PyQt6.QtWidgets import *
 
 # ------------------------------------  GUI ------------------------------------------------------
 
-version = "1.1.3"
+version = "1.1.4"
 
 app = QApplication([])
 window = QWidget()
@@ -31,7 +31,6 @@ ytksButton = QPushButton("YTKS.app")
 hbox1.addWidget(ytksButton)
 hbox1.addWidget(repoButton)
 group1.setLayout(hbox1)
-layout.addWidget(group1)
 
 layout.addWidget(QLabel("Enter YTKS match URL: "))
 lineEdit = QLineEdit()
@@ -63,6 +62,7 @@ layout.addWidget(infoLabel)
 downloadButton = QPushButton('Download clip')
 downloadButton.setEnabled(False)
 layout.addWidget(downloadButton)
+layout.addWidget(group1)
 window.setLayout(layout)
 
 downloadInProgress = False
@@ -230,15 +230,26 @@ def process(url, duration, folder_name=""):
             os.remove("ffmpeg.zip")
         except OSError:
             pass
+        downloadButton.setText("Downloading clips...")
     os.chdir("./ffmpeg-master-latest-win64-gpl/bin")
     start_time_in_s = round((timestamp / 1000)-duration/2)
     start_time_in_s = max(start_time_in_s, 0)
     command = "ffmpeg.exe -ss " + time_in_s_to_time_string(start_time_in_s) + " -i \"" + url_vid + \
               "\" -ss " + time_in_s_to_time_string(start_time_in_s) + " -i \"" + url_aud + \
               "\" -map 0:v -map 1:a -c:v libx264 -c:a aac -b:a 320k -t " + time_in_s_to_time_string(duration) + \
-              " -y \"" + "../../" + (folder_name + "/" if folder_name != "" else "") + replace_non_alpha_num(title.strip()) + "-" + id + "-" + str(round(timestamp / 1000)) + ".mp4\""
+              " -y \"" + "../../" + (folder_name + "/" if folder_name != "" else "") + replace_non_alpha_num(
+        title.strip()) + "-" + id + "-" + str(round(timestamp / 1000)) + ".mp4\""
     print(command)
-    os.system(command)
+
+    tries_left = 2
+    success = False
+    while not success and tries_left > 0:
+        tries_left = tries_left - 1
+        try:
+            os.system(command)
+            success = True
+        except Exception as e:
+            pass
     os.chdir("../../")
 
 
