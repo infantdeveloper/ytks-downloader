@@ -10,18 +10,31 @@ import youtube_dl
 import urllib.request
 import zipfile
 import webbrowser
+import requests
 
 from PyQt6 import QtGui
 from PyQt6.QtWidgets import *
 
+
+def get_newest_version():
+    response = requests.get("https://github.com/infantdeveloper/ytks-downloader/releases/latest")
+    if response is not None and response.history is not None and len(response.history) == 1:
+        redirect_response = response.history[0]
+        if redirect_response.status_code == 302:
+            redirect_url = redirect_response.headers["location"]
+            if redirect_url.startswith("https://github.com/infantdeveloper/ytks-downloader/releases/tag/"):
+                return redirect_url.replace("https://github.com/infantdeveloper/ytks-downloader/releases/tag/", "")
+    return None
+
 # ------------------------------------  GUI ------------------------------------------------------
 
 version = "1.1.4"
+newest_version = get_newest_version()
 
 app = QApplication([])
 window = QWidget()
 window.setWindowTitle("YTKS Downloader - " + version)
-window.setFixedSize(400, 300)
+window.setFixedSize(400, 330)
 layout = QVBoxLayout()
 
 group1 = QWidget()
@@ -63,6 +76,10 @@ downloadButton = QPushButton('Download clip')
 downloadButton.setEnabled(False)
 layout.addWidget(downloadButton)
 layout.addWidget(group1)
+
+if newest_version is not None and int(newest_version.replace(".", "")) > int(version.replace(".", "")):
+    layout.addWidget(QLabel("New version available! Current: (" + version + ") Newest: (" + newest_version + ")"))
+
 window.setLayout(layout)
 
 downloadInProgress = False
