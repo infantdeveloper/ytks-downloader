@@ -220,8 +220,10 @@ def process(url, duration, folder_name=""):
     url_vid = None
     url_aud = None
 
+    tries_left = 3
     done = False
-    while not done:
+    while not done and tries_left > 0:
+        tries_left = tries_left - 1
         try:
             with youtube_dl.YoutubeDL({
                 'format': 'bestvideo+bestaudio',
@@ -236,6 +238,9 @@ def process(url, duration, folder_name=""):
             if e.args[0] == 'ERROR: Private video\nSign in if you\'ve been granted access to this video':
                 print("WARNING: Skipping video with id " + str(id) + " because it is private and can't be accessed")
                 return
+    if not done:
+        print("Error: Unable to download clip from video \"" + url + "\"")
+        return
     if not os.path.isfile("./ffmpeg-master-latest-win64-gpl/bin/ffmpeg.exe"):
         print("Downloading FFMPEG")
         downloadButton.setText("Downloading FFMPEG...")
