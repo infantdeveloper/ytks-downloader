@@ -1,3 +1,4 @@
+import io
 import json
 import math
 import time
@@ -115,7 +116,7 @@ def button_pressed_action():
             infoLabel.setText("Downloading clip...")
             process(lineEdit.text(), durationField.value()+5)  # Whole function is in seperate thread -> no blocking
         else:
-            file = open(chosenFile, "r")
+            file = io.open(chosenFile, "r", encoding="utf-8")
             ytks_matches = json.load(file)
             file.close()
             match_list = ytks_matches["matches"]
@@ -130,7 +131,8 @@ def button_pressed_action():
                 process(match["matchUrl"], round(match["duration"]/1000)+durationField.value(), folder_name=folder_name)
                 currentClip += 1
         infoLabel.setText("")
-    except Exception:
+    except Exception as ex:
+        print(ex)
         infoLabel.setText("Error during parsing/downloading. Check if correct file is selected")
     downloadButton.setText("Download clip")
     downloadButton.setEnabled(True)
