@@ -29,7 +29,7 @@ def get_newest_version():
 
 # ------------------------------------  GUI ------------------------------------------------------
 
-version = "1.1.5"
+version = "1.1.7"
 newest_version = get_newest_version()
 
 app = QApplication([])
@@ -226,7 +226,7 @@ def process(url, duration, folder_name=""):
         tries_left = tries_left - 1
         try:
             with youtube_dl.YoutubeDL({
-                'format': 'bestvideo+bestaudio',
+                'format': 'bestvideo+bestaudio[format_id=249-0]',
                 "youtube_include_dash_manifest": False
             }) as ytdl:
                 x = ytdl.extract_info("https://www.youtube.com/watch?v="+id, False)
