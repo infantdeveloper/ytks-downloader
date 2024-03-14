@@ -233,6 +233,7 @@ def process(url, duration, folder_name=""):
                 url_vid = x["requested_formats"][0]["url"]
                 url_aud = x["requested_formats"][1]["url"]
                 title = x["title"]
+                upload_year, upload_month, upload_day = x["upload_date"][:4], x["upload_date"][4:6], x["upload_date"][6:8]
                 done = True
         except Exception as e:
             if e.args[0] == 'ERROR: Private video\nSign in if you\'ve been granted access to this video':
@@ -261,7 +262,7 @@ def process(url, duration, folder_name=""):
     command = "ffmpeg.exe -ss " + time_in_s_to_time_string(start_time_in_s) + " -i \"" + url_vid + \
               "\" -ss " + time_in_s_to_time_string(start_time_in_s) + " -i \"" + url_aud + \
               "\" -map 0:v -map 1:a -c:v libx264 -c:a aac -b:a 320k -t " + time_in_s_to_time_string(duration) + \
-              " -y \"" + "../../" + (folder_name + "/" if folder_name != "" else "") + replace_non_alpha_num(
+              " -y \"" + "../../" + (folder_name + "/" if folder_name != "" else "") + upload_year+"-"+upload_month+"-"+upload_day+"-" + replace_non_alpha_num(
         title.strip()) + "-" + id + "-" + str(round(timestamp / 1000)) + ".mp4\""
     print(command)
 
