@@ -1,4 +1,4 @@
-git+https://github.com/ytdl-org/youtube-dl.git@master#egg=youtube_dl
-PyQt6==6.6.1
-auto-py-to-exe==2.33.0
-requests==2.28.2
+yt-dlp==2024.7.9
+PyQt6==6.7.0
+pyinstaller~=6.9.0
+requests==2.32.3

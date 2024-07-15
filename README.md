@@ -16,6 +16,6 @@ Ff you're downloading a match list it creates a folder (with the same name as th
 
 ## Build from source
 
-1. Make sure you have installed python 3.9 or higher or [install it](https://www.python.org/downloads/)
+1. Make sure you have installed python 3.12 or higher or [install it](https://www.python.org/downloads/)
 2. Install the required libraries via ``pip install -r requirements.txt``
-3. Wrap the code into an executable by running ``auto-py-to-exe`` and select auto-py-to-exe-config.json under Settings -> Import Config From JSON File
+3. Wrap the code into an executable by running ``pyinstaller --noconfirm --onefile --console --icon logo.ico ./main.py``

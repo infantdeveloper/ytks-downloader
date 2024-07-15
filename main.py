@@ -1,19 +1,17 @@
 import io
 import json
-import math
 import time
 import os
 import re
 from pathlib import Path
 from threading import Thread
 
-import youtube_dl
+import yt_dlp
 import urllib.request
 import zipfile
 import webbrowser
 import requests
 
-from PyQt6 import QtGui
 from PyQt6.QtWidgets import *
 
 
@@ -29,7 +27,7 @@ def get_newest_version():
 
 # ------------------------------------  GUI ------------------------------------------------------
 
-version = "1.1.10"
+version = "1.1.11"
 newest_version = get_newest_version()
 
 app = QApplication([])
@@ -225,8 +223,8 @@ def process(url, duration, folder_name=""):
     while not done and tries_left > 0:
         tries_left = tries_left - 1
         try:
-            with youtube_dl.YoutubeDL({
-                'format': 'bestvideo+bestaudio[format_id=249-0]/bestvideo+bestaudio[format_id=249]/bestvideo+bestaudio',
+            with yt_dlp.YoutubeDL({
+                'format': 'bestvideo[format_note!=Premium]+bestaudio[format_id=249-0]/bestvideo[format_note!=Premium]+bestaudio[format_id=249]/bestvideo[format_note!=Premium]+bestaudio',
                 "youtube_include_dash_manifest": False
             }) as ytdl:
                 x = ytdl.extract_info("https://www.youtube.com/watch?v="+id, False)
