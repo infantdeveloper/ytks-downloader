@@ -18,4 +18,4 @@ Ff you're downloading a match list it creates a folder (with the same name as th
 
 1. Make sure you have installed python 3.12 or higher or [install it](https://www.python.org/downloads/)
 2. Install the required libraries via ``pip install -r requirements.txt``
-3. Wrap the code into an executable by running ``pyinstaller --noconfirm --onefile --console --icon logo.ico ./main.py``
+3. Wrap the code into an executable by running ``pyinstaller --noconfirm --onefile --console --icon logo.ico -n ytks_downloader ./main.py``
