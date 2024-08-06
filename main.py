@@ -27,7 +27,7 @@ def get_newest_version():
 
 # ------------------------------------  GUI ------------------------------------------------------
 
-version = "1.1.11"
+version = "1.1.12"
 newest_version = get_newest_version()
 
 app = QApplication([])

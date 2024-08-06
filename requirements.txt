@@ -1,4 +1,4 @@
-yt-dlp==2024.7.9
+yt-dlp==2024.8.1
 PyQt6==6.7.0
 pyinstaller~=6.9.0
 requests==2.32.3
